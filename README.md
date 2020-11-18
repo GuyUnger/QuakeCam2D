@@ -60,37 +60,16 @@ QuakeCam2D.shake_quake().amplitude_in(1).frequency_constant()
 ```
 These are the functions to define the curve for frequency and amplitude:
 
-```
-func amplitude_in(value:float = 0)->CameraShake:
-	amplitude_curve = 1 / value
-	return self
+``` python
+amplitude_in()
+amplitude_out()
+amplitude_inout()
+amplitude_constant()
 
-func amplitude_out(value:float = 0)->CameraShake:
-	amplitude_curve = 1 + value
-	return self
-
-func amplitude_inout(value:float = 0)->CameraShake:
-	amplitude_curve = -(1 + value)
-	return self
-
-func amplitude_constant()->CameraShake:
-	amplitude_curve = 0
-	return self
-
-func frequency_in(value:float = 0)->CameraShake:
-	frequency_curve = 1 / value
-	return self
-
-func frequency_out(value:float = 0)->CameraShake:
-	frequency_curve = 1 + value
-	return self
-
-func frequency_inout(value:float = 0)->CameraShake:
-	frequency_curve = -(1 + value)
-	return self
-
-func frequency_constant()->CameraShake:
-	return self
+frequency_in()
+frequency_out()
+frequency_inout()
+frequency_constant()
 ```
 
 
