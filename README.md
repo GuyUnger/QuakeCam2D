@@ -4,12 +4,12 @@ A versatile and easy to use camera shake plugin for Godot
 
 # How to use
 
-```
+``` python
 QuakeCam2D.shake_quake()
 ```
 
 You can store a shake to keep control over it while it's in effect
-```
+``` python
 var shake = QuakeCam2D.shake_quake(-1)
 
 func press_pause():
@@ -19,30 +19,85 @@ func press_play():
   shake.play()
 ```
 
+#### Chaining
 You can chain functions to add special behaviors to the shake
+``` python
+QuakeCam2D.shake_quake().boost().hold().reverse().boost()
 ```
-QuakeCam2D.shake_quake().hold(.1).reverse()
-```
+#### Special behavior functions
 
-```hold(duration:float, calculate_initial:bool = false)```
-Waits a duration before executing the shake
+``` python
+boost(duration:float, multiplier:float = 3)
+```
+Multiplies the shake for a certain duration, good for adding an extra kick at the start of the shake
+
+``` python
+hold(duration:float, calculate_initial:bool = false)
+```
+Waits a certain duration before executing the shake, good for building kinetic tension
 use calculate_initial to jump to the first offset of the shake and hold it there
 
-```reverse()```
-Will make the shake start at 0 amplitude/frequency and build up over time
+``` python
+reverse()
+```
+Will make the shake start at 0 and build up over time
 
-```limit_fps(fps:float)```
+``` python
+limit_fps(fps:float)
+```
 Will make the shake play at a certain FPS
 
-## Fading
+``` python
+skip(duration:float)
+```
+Skips part of the shake
+
+
+### Fading
 You can setup how you want a shake to fade out. The shake fades out in it's amplitude and frequency, unless it's set to constant. 
-```QuakeCam2D.shake_quake().amplitude_in(1).frequency_constant()```
+``` python
+QuakeCam2D.shake_quake().amplitude_in(1).frequency_constant()
+```
+These are the functions to define the curve for frequency and amplitude:
+
+``` python
+amplitude_in()
+amplitude_out()
+amplitude_inout()
+amplitude_constant()
+
+frequency_in()
+frequency_out()
+frequency_inout()
+frequency_constant()
+```
 
 
-# Custom shakes
+### Caller/Listener
+Sometimes you want a shake to come from a specific location. i.e. you might want moving platforms to hit walls and set the camera shaking but only when the player is near. This can be set up easily:
+``` python
+QuakeCam2D.shake_quake().from_node(platform, 500, 100, 1, player)
+```
+
+You can set the default listener in the QuakeCam2D node so you don't have to define one each time. The default default is the camera itself. 
+``` python
+QuakeCam2d.default_listener = player
+```
+
+``` python
+from_node(node:Node2D, amplitude_max:float, amplitude_min:float, listener:Node2D, falloff_curve:float)
+```
+Will play the shapes intensity based on the distance between the listener and caller node. This is useful for moving objects where the distance keeps changing.
+
+``` python
+from_node(position:Vector2, amplitude_max:float, amplitude_min:float, listener:Node2D, falloff_curve:float)
+```
+Will play the shapes intensity based on the distance between the listener and call position.
+
+## Custom shakes
 You can make your own shake script by extending the CameraShake class
 All you really need to include in this class is a _update_offset() function in which you set the offset variable. An _init() function where you at least set up the duration and amplitude is adviced to give more control over the shake.
-```
+``` python
 extends CameraShake
 class_name CameraShakeShock
 
