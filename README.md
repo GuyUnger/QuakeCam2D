@@ -74,7 +74,7 @@ frequency_constant()
 
 
 ### Caller/Listener
-Sometimes you want a shake to come from a specific location. IE. you might want moving platforms to hit walls and set the camera shaking but only when the player is near. This can be set up easily:
+Sometimes you want a shake to come from a specific location. i.e. you might want moving platforms to hit walls and set the camera shaking but only when the player is near. This can be set up easily:
 ``` python
 QuakeCam2D.shake_quake().from_node(platform, 500, 100, 1, player)
 ```
