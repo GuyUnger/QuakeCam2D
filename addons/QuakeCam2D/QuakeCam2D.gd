@@ -19,7 +19,7 @@ func shake_quake(duration:float = 1, amplitude:float = 10, frequency:float = 20,
 	return add_shake(CameraShakeQuake.new(duration, amplitude, frequency, randomness))
 
 # Moves the camera in a direction and smoothly tweens it back
-# tip: works well using easing `shake_pull().set_ease(1.5)`
+# tip: the easing can be influenced by setting the amplitude curve ie. amplitude_in(1), amplitude_out(1.5)
 func shake_pull(duration:float = .5, amplitude:float = 10, direction:float = -1.570796)->CameraShake:
 	return add_shake(CameraShakePull.new(duration, amplitude, direction))
 

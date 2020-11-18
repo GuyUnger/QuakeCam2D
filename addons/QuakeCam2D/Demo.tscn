@@ -13,7 +13,7 @@ func _ready():
 	shake_handheld = $QuakeCam2D.shake_handheld(-1)
 	shake_handheld.pause()
 	
-	shake_positional = $QuakeCam2D.shake_buzz(-1, 5).from_node($Node2D/Caller, 300, 0, $Node2D/Listener)
+	shake_positional = $QuakeCam2D.shake_buzz(-1, 5).from_node($Node2D/Caller, 300, 0, 1, $Node2D/Listener)
 	shake_positional.pause()
 
 func _on_Button_button_down():
@@ -23,8 +23,7 @@ func _on_Button2_button_down():
 	$QuakeCam2D.shake_shock()
 
 func _on_Button3_button_down():
-	$QuakeCam2D.shake_quake(1.5, 10, 15)
-	$QuakeCam2D.shake_quake(1.5, 5, 25)
+	$QuakeCam2D.shake_quake()
 
 func _on_Button4_button_down():
 	$QuakeCam2D.shake_wave()
