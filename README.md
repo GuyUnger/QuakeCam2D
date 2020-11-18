@@ -70,20 +70,18 @@ Sometimes you want a shake to come from a specific location. i.e. you might want
 QuakeCam2D.shake_quake().from_node(platform, 500, 100, 1, player)
 ```
 
+``` python
+from_node(node:Node2D, amplitude_max:float, amplitude_min:float, listener:Node2D, falloff_curve:float)
+# Will play the shapes intensity based on the distance between the listener and caller node. This is useful for moving objects where the distance keeps changing.
+
+from_node(position:Vector2, amplitude_max:float, amplitude_min:float, listener:Node2D, falloff_curve:float)
+# Will play the shapes intensity based on the distance between the listener and call position.
+```
+
 You can set the default listener in the QuakeCam2D node so you don't have to define one each time. The default default is the camera itself. 
 ``` python
 QuakeCam2d.default_listener = player
 ```
-#### Methods
-``` python
-from_node(node:Node2D, amplitude_max:float, amplitude_min:float, listener:Node2D, falloff_curve:float)
-```
-Will play the shapes intensity based on the distance between the listener and caller node. This is useful for moving objects where the distance keeps changing.
-
-``` python
-from_node(position:Vector2, amplitude_max:float, amplitude_min:float, listener:Node2D, falloff_curve:float)
-```
-Will play the shapes intensity based on the distance between the listener and call position.
 
 ## Shakes
 ### Positional shakes
