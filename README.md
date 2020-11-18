@@ -107,15 +107,13 @@ shake_rumble(duration:float = .5, amplitude:float = 10, frequency:float = 5, dir
 ```
 Circles the camera position around the center
 
-A vicious random shake that makes sure the camera moves almost the whole amplitude each frame
 ``` python
 shake_buzz(duration = .5, amplitude = 10)
 ```
+A vicious random shake that makes sure the camera moves almost the whole amplitude each frame
 
+```shake_shock(duration:float = .3, amplitude:float = 7)```
 The most random of all. Sets a random direction and amplitude each frame
-``` python
-shake_shock(duration:float = .3, amplitude:float = 7)
-```
 
 ##### Directional
 ``` python
