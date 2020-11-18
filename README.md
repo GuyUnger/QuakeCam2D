@@ -72,7 +72,8 @@ QuakeCam2D.shake_quake().from_node(platform, 500, 100, 1, player)
 
 ``` python
 from_node(node:Node2D, amplitude_max:float, amplitude_min:float, listener:Node2D, falloff_curve:float)
-# Will play the shapes intensity based on the distance between the listener and caller node. This is useful for moving objects where the distance keeps changing.
+# Will play the shapes intensity based on the distance between the listener and caller node.
+# this is useful for moving objects where the distance keeps changing.
 
 from_node(position:Vector2, amplitude_max:float, amplitude_min:float, listener:Node2D, falloff_curve:float)
 # Will play the shapes intensity based on the distance between the listener and call position.
