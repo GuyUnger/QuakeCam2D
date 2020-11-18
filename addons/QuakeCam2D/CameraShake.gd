@@ -7,8 +7,8 @@ var zoom:Vector2
 
 var t_raw:float = 1
 var t:float = 1
-var duration:float
-var amplitude:float
+var duration:float = 1
+var amplitude:float = 1
 var amplitude_curve:float = .5
 var hold_t:float
 var boost_t:float
@@ -33,6 +33,7 @@ var caller_position:Vector2
 var caller_node:Node2D
 var listen_amplitude_min:float
 var listen_amplitude_max:float
+var listen_falloff_curve:float
 
 func init(duration:float, amplitude:float, frequency:float = 1):
 	self.duration = duration
@@ -72,6 +73,7 @@ func process(delta, force:bool = false)->Vector2:
 				ListenMode.node2D:
 					listen_amplitude = (caller_node.global_position - listener.global_position).length()
 			var listen_multi = clamp(range_lerp(listen_amplitude, listen_amplitude_min, listen_amplitude_max, 1, 0), 0, 1)
+			listen_multi = ease(listen_multi, listen_falloff_curve)
 			offset *= listen_multi
 		
 		if duration > 0:
@@ -111,19 +113,21 @@ func boost(duration:float, multiplier:float = 3)->CameraShake:
 	boost_multi = multiplier
 	return self
 
-func from_position(position:Vector2, amplitude_max = 500, amplitude_min = 0, listener:Node2D = null)->CameraShake:
+func from_position(position:Vector2, amplitude_max:float = 500, amplitude_min:float = 0, listener:Node2D = null, falloff_curve:float = 1)->CameraShake:
 	self.caller_position = position
 	listen_mode = ListenMode.position
 	listen_amplitude_min = amplitude_min
 	listen_amplitude_max = amplitude_max
+	listen_falloff_curve = falloff_curve
 	if listener: self.listener = listener
 	return self
 
-func from_node(node, amplitude_max, amplitude_min, listener:Node2D = null)->CameraShake:
+func from_node(node:Node2D, amplitude_max:float = 500, amplitude_min:float = 0, listener:Node2D = null, falloff_curve:float = 1)->CameraShake:
 	caller_node = node
 	listen_amplitude_min = amplitude_min
 	listen_amplitude_max = amplitude_max
 	listen_mode = ListenMode.node2D
+	listen_falloff_curve = falloff_curve
 	if listener: self.listener = listener
 	return self
 
@@ -162,7 +166,7 @@ func frequency_inout(value:float = 0)->CameraShake:
 func frequency_constant()->CameraShake:
 	return self
 
-func limit_fps(fps)->CameraShake:
+func limit_fps(fps:float)->CameraShake:
 	self.fps = fps
 	return self
 
