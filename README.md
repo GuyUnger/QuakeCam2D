@@ -26,30 +26,20 @@ QuakeCam2D.shake_quake().boost().hold().reverse().boost()
 ```
 #### Special behavior functions
 
-``` python
-boost(duration:float, multiplier:float = 3)
-```
+```boost(duration:float, multiplier:float = 3)```
 Multiplies the shake for a certain duration, good for adding an extra kick at the start of the shake
 
-``` python
-hold(duration:float, calculate_initial:bool = false)
-```
+```hold(duration:float, calculate_initial:bool = false)```
 Waits a certain duration before executing the shake, good for building kinetic tension
 use calculate_initial to jump to the first offset of the shake and hold it there
 
-``` python
-reverse()
-```
+```reverse()```
 Will make the shake start at 0 and build up over time
 
-``` python
-limit_fps(fps:float)
-```
+```limit_fps(fps:float)```
 Will make the shake play at a certain FPS
 
-``` python
-skip(duration:float)
-```
+```skip(duration:float)```
 Skips part of the shake
 
 
