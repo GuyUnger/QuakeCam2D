@@ -127,7 +127,7 @@ Moves the camera back and forth the whole amplitude each frame
 
 ### Rotational shakes
 ``` python
-func shake_bobble(duration:float = .5, amplitude:float = 3, frequency:float = 4, start_angle:float = 0, direction:int = 0)
+shake_bobble(duration:float = .5, amplitude:float = 3, frequency:float = 4, start_angle:float = 0, direction:int = 0)
 ```
 Wobbles the camera angle back and forth around the center like a polite indian
 
