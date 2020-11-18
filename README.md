@@ -79,9 +79,9 @@ from_position(position:Vector2, amplitude_max:float, amplitude_min:float, listen
 # Will play the shapes intensity based on the distance between the listener and call position.
 ```
 
-You can set the default listener in the QuakeCam2D node so you don't have to define one each time. The default default is the camera itself. 
+You can set the __default listener__ in the QuakeCam2D node so you don't have to pass one each time. The default default is the camera itself. You don't have to 
 ``` python
-QuakeCam2d.default_listener = player
+QuakeCam2D.default_listener = player
 ```
 
 ## Shakes
