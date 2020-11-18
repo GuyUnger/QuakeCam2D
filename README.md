@@ -4,12 +4,12 @@ A versatile and easy to use camera shake plugin for Godot
 
 # How to use
 
-```
+``` python
 QuakeCam2D.shake_quake()
 ```
 
 You can store a shake to keep control over it while it's in effect
-```
+``` python
 var shake = QuakeCam2D.shake_quake(-1)
 
 func press_pause():
@@ -20,11 +20,13 @@ func press_play():
 ```
 
 You can chain functions to add special behaviors to the shake
-```
+``` python
 QuakeCam2D.shake_quake().boost().hold(.1).reverse()
 ```
 
-```boost(duration:float, multiplier:float = 3)```
+``` python
+boost(duration:float, multiplier:float = 3)
+```
 Multiplies the shake for a certain duration, good for adding an extra kick at the start of the shake
 
 ```hold(duration:float, calculate_initial:bool = false)```
