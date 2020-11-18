@@ -24,7 +24,7 @@ You can chain functions to add special behaviors to the shake
 ``` python
 QuakeCam2D.shake_quake().boost().hold().reverse().boost()
 ```
-#### Special behavior functions
+#### Special behavior methods
 
 ``` python
 boost(duration:float, multiplier:float = 3)
@@ -83,7 +83,7 @@ You can set the default listener in the QuakeCam2D node so you don't have to def
 ``` python
 QuakeCam2d.default_listener = player
 ```
-
+#### Methods
 ``` python
 from_node(node:Node2D, amplitude_max:float, amplitude_min:float, listener:Node2D, falloff_curve:float)
 ```
@@ -93,6 +93,70 @@ Will play the shapes intensity based on the distance between the listener and ca
 from_node(position:Vector2, amplitude_max:float, amplitude_min:float, listener:Node2D, falloff_curve:float)
 ```
 Will play the shapes intensity based on the distance between the listener and call position.
+
+## Shakes
+#### Positional shakes
+
+##### Shake
+``` python
+shake_quake(duration:float = 1, amplitude:float = 10, frequency:float = 20, randomness:float = 1)
+```
+Shakes around smoothly
+
+``` python
+shake_rumble(duration:float = .5, amplitude:float = 10, frequency:float = 5, direction:int = 0)
+```
+Circles the camera position around the center
+
+A vicious random shake that makes sure the camera moves almost the whole amplitude each frame
+``` python
+shake_buzz(duration = .5, amplitude = 10)
+```
+
+The most random of all. Sets a random direction and amplitude each frame
+``` python
+shake_shock(duration:float = .3, amplitude:float = 7)
+```
+
+##### Directional
+``` python
+shake_pull(duration:float = .5, amplitude:float = 10, direction:float = -1.570796)
+```
+Moves the camera in a direction and smoothly tweens it back
+***tip: the easing can be controlled by setting the amplitude curve ie. amplitude_in(1), amplitude_out(1.5)***
+
+``` python
+shake_wave(duration:float = .5, amplitude:float = 10, frequency:float = 5, direction:float = -1.570796)
+```
+Waves back and forth in a certain direction
+
+``` python
+shake_tremble(duration:float = .5, amplitude:float = 10, direction:float = -1.570796)
+```
+Moves the camera back and forth the whole amplitude each frame
+***tip: best used with a limited frame rate, to set the framerate use*** ```camera.shake_tramble().limit_fps(12)```
+
+##### Rotational
+``` python
+func shake_bobble(duration:float = .5, amplitude:float = 3, frequency:float = 4, start_angle:float = 0, direction:int = 0)
+```
+Wobbles the camera angle back and forth around the center like a polite indian
+
+``` python
+shake_wobble(duration:float = .5, amplitude:float = 3, frequency:float = 4, direction:int = 0)
+```
+Similar to bobble but more random
+
+``` python
+shake_handheld(duration:float = 1, amplitude:float = 10, speed:float = 1)
+```
+Moves the camera around randomly similar to a camera being held in hand
+***tip: works well if you set it to ongoing (duration to -1) and store the shake as a variables so you can pause() and play() it***
+
+#### Zoom shake
+``` python
+shake_flinch(duration:float = .2, amplitude:float = .02, direction:int = 1)
+```
 
 ## Custom shakes
 You can make your own shake script by extending the CameraShake class
