@@ -135,7 +135,7 @@ shake_tremble(duration:float = .5, amplitude:float = 10, direction:float = -1.57
 Moves the camera back and forth the whole amplitude each frame
 ***tip: best used with a limited frame rate, to set the framerate use*** ```camera.shake_tramble().limit_fps(12)```
 
-## Rotational shakes
+### Rotational shakes
 ``` python
 func shake_bobble(duration:float = .5, amplitude:float = 3, frequency:float = 4, start_angle:float = 0, direction:int = 0)
 ```
@@ -152,7 +152,7 @@ shake_handheld(duration:float = 1, amplitude:float = 10, speed:float = 1)
 Moves the camera around randomly similar to a camera being held in hand
 ***tip: works well if you set it to ongoing (duration to -1) and store the shake as a variables so you can pause() and play() it***
 
-## Zoom shakes
+### Zoom shakes
 ``` python
 shake_flinch(duration:float = .2, amplitude:float = .02, direction:int = 1)
 ```
