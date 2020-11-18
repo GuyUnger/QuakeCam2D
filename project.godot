@@ -1,0 +1,96 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Object",
+"class": "CameraShake",
+"language": "GDScript",
+"path": "res://addons/QuakeCam2D/CameraShake.gd"
+}, {
+"base": "CameraShake",
+"class": "CameraShakeBobble",
+"language": "GDScript",
+"path": "res://addons/QuakeCam2D/shakes/CameraShakeBobble.gd"
+}, {
+"base": "CameraShake",
+"class": "CameraShakeBuzz",
+"language": "GDScript",
+"path": "res://addons/QuakeCam2D/shakes/CameraShakeBuzz.gd"
+}, {
+"base": "CameraShake",
+"class": "CameraShakeFlinch",
+"language": "GDScript",
+"path": "res://addons/QuakeCam2D/shakes/CameraShakeFlinch.gd"
+}, {
+"base": "CameraShake",
+"class": "CameraShakeHandheld",
+"language": "GDScript",
+"path": "res://addons/QuakeCam2D/shakes/CameraShakeHandheld.gd"
+}, {
+"base": "CameraShake",
+"class": "CameraShakePull",
+"language": "GDScript",
+"path": "res://addons/QuakeCam2D/shakes/CameraShakePull.gd"
+}, {
+"base": "CameraShake",
+"class": "CameraShakeQuake",
+"language": "GDScript",
+"path": "res://addons/QuakeCam2D/shakes/CameraShakeQuake.gd"
+}, {
+"base": "CameraShake",
+"class": "CameraShakeRumble",
+"language": "GDScript",
+"path": "res://addons/QuakeCam2D/shakes/CameraShakeRumble.gd"
+}, {
+"base": "CameraShake",
+"class": "CameraShakeShock",
+"language": "GDScript",
+"path": "res://addons/QuakeCam2D/shakes/CameraShakeShock.gd"
+}, {
+"base": "CameraShake",
+"class": "CameraShakeTremble",
+"language": "GDScript",
+"path": "res://addons/QuakeCam2D/shakes/CameraShakeTremble.gd"
+}, {
+"base": "CameraShake",
+"class": "CameraShakeWave",
+"language": "GDScript",
+"path": "res://addons/QuakeCam2D/shakes/CameraShakeWave.gd"
+}, {
+"base": "CameraShake",
+"class": "CameraShakeWobble",
+"language": "GDScript",
+"path": "res://addons/QuakeCam2D/shakes/CameraShakeWobble.gd"
+}, {
+"base": "Camera2D",
+"class": "QuakeCam2D",
+"language": "GDScript",
+"path": "res://addons/QuakeCam2D/QuakeCam2D.gd"
+} ]
+_global_script_class_icons={
+"CameraShake": "",
+"CameraShakeBobble": "",
+"CameraShakeBuzz": "",
+"CameraShakeFlinch": "",
+"CameraShakeHandheld": "",
+"CameraShakePull": "",
+"CameraShakeQuake": "",
+"CameraShakeRumble": "",
+"CameraShakeShock": "",
+"CameraShakeTremble": "",
+"CameraShakeWave": "",
+"CameraShakeWobble": "",
+"QuakeCam2D": ""
+}
+
+[application]
+
+config/name="QuakeCam2D"
+config/icon="res://icon.png"
