@@ -1,18 +1,21 @@
 extends Object
 class_name CameraShake
 
+# Shake offsets
 var offset:Vector2
 var angle:float
 var zoom:Vector2
 
+
 var t_raw:float = 1
 var t:float = 1
 var duration:float = 1
-var amplitude:float = 1
-var amplitude_curve:float = .5
 var hold_t:float
 var boost_t:float
 var boost_multi:float
+
+var amplitude:float = 1
+var amplitude_curve:float = .5
 var frequency:float
 var frequency_curve:float = .5
 
@@ -43,7 +46,12 @@ func init(duration:float, amplitude:float, frequency:float = 1):
 func is_completed()->bool:
 	return t_raw <= 0
 
-func process(delta, force:bool = false)->Vector2:
+func clean():
+	listener = null
+	caller_node = null
+
+## Update ##
+func process(delta:float, force:bool = false)->Vector2:
 	if (playing and hold_t <= 0) or force:
 		
 		t = t_raw
@@ -76,13 +84,12 @@ func process(delta, force:bool = false)->Vector2:
 			listen_multi = ease(listen_multi, listen_falloff_curve)
 			offset *= listen_multi
 		
-		if duration > 0:
-			t_raw = move_toward(t_raw, 0, delta / duration)
+		t_raw = move_toward(t_raw, 0, delta / duration)
 	elif hold_t > 0:
 		hold_t -= delta
 	return offset
 
-func update_offset(delta):
+func update_offset(delta:float):
 	_update_offset(delta)
 	
 	if amplitude_curve != 0:
@@ -94,8 +101,25 @@ func update_offset(delta):
 		offset *= boost_multi
 		boost_t -= delta
 
-func _update_offset(delta):
+# The main function to override and set the shake offsets
+func _update_offset(delta:float):
 	pass
+
+
+## Playback ##
+func pause()->CameraShake:
+	playing = false
+	return self
+
+func play()->CameraShake:
+	playing = true
+	return self
+
+func stop():
+	t = 0
+
+
+## Special Behaviors ##
 
 # holds the shake for a certain duration, good for building kinetic tension
 func hold(duration:float, calculate_initial:bool = false)->CameraShake:
@@ -112,6 +136,17 @@ func boost(duration:float, multiplier:float = 3)->CameraShake:
 	boost_t = duration
 	boost_multi = multiplier
 	return self
+
+func limit_fps(fps:float)->CameraShake:
+	self.fps = fps
+	return self
+
+func reverse()->CameraShake:
+	reversed = !reversed
+	return self
+
+
+## Caller/Listener ##
 
 func from_position(position:Vector2, amplitude_max:float = 500, amplitude_min:float = 0, listener:Node2D = null, falloff_curve:float = 1)->CameraShake:
 	self.caller_position = position
@@ -135,6 +170,8 @@ func from_global()->CameraShake:
 	listen_mode = ListenMode.global
 	return self
 
+
+## Fading ##
 func amplitude_in(value:float = 0)->CameraShake:
 	amplitude_curve = 1 / value
 	return self
@@ -165,26 +202,3 @@ func frequency_inout(value:float = 0)->CameraShake:
 
 func frequency_constant()->CameraShake:
 	return self
-
-func limit_fps(fps:float)->CameraShake:
-	self.fps = fps
-	return self
-
-func reverse()->CameraShake:
-	reversed = !reversed
-	return self
-
-func pause()->CameraShake:
-	playing = false
-	return self
-
-func play()->CameraShake:
-	playing = true
-	return self
-
-func stop():
-	t = 0
-
-func clean():
-	listener = null
-	caller_node = null
