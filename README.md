@@ -21,23 +21,44 @@ func press_play():
 
 You can chain functions to add special behaviors to the shake
 ```
-QuakeCam2D.shake_quake().hold(.1).reverse()
+QuakeCam2D.shake_quake().boost().hold(.1).reverse()
 ```
 
+```boost(duration:float, multiplier:float = 3)```
+Multiplies the shake for a certain duration, good for adding an extra kick at the start of the shake
+
 ```hold(duration:float, calculate_initial:bool = false)```
-Waits a duration before executing the shake
+Waits a certain duration before executing the shake, good for building kinetic tension
 use calculate_initial to jump to the first offset of the shake and hold it there
 
 ```reverse()```
-Will make the shake start at 0 amplitude/frequency and build up over time
+Will make the shake start at 0 and build up over time
 
 ```limit_fps(fps:float)```
 Will make the shake play at a certain FPS
+
+```skip(duration:float)```
+Skips part of the shake
+
 
 ## Fading
 You can setup how you want a shake to fade out. The shake fades out in it's amplitude and frequency, unless it's set to constant. 
 ```QuakeCam2D.shake_quake().amplitude_in(1).frequency_constant()```
 
+## Caller/Listener
+Sometimes you want a shake to come from a specific location. IE. you might want moving platforms to hit walls and set the camera shaking but only when the player is near. This can be set up easily:
+```
+QuakeCam2D.shake_quake().from_node(platform, 500, 100, 1, player)
+```
+
+You can set the default listener in the QuakeCam2D node so you don't have to define one each time. The default default is the camera itself. 
+```QuakeCam2d.default_listener = player```
+
+```from_node(node:Node2D, amplitude_max:float, amplitude_min:float, listener:Node2D, falloff_curve:float)```
+Will play the shapes intensity based on the distance between the listener and caller node. This is useful for moving objects where the distance keeps changing.
+
+```from_node(position:Vector2, amplitude_max:float, amplitude_min:float, listener:Node2D, falloff_curve:float)```
+Will play the shapes intensity based on the distance between the listener and call position.
 
 # Custom shakes
 You can make your own shake script by extending the CameraShake class
