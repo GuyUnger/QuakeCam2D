@@ -19,8 +19,6 @@ func press_play():
   shake.play()
 ```
 
-### Special behaviors
-
 #### Chaining
 You can chain functions to add special behaviors to the shake
 ``` python
