@@ -19,11 +19,14 @@ func press_play():
   shake.play()
 ```
 
-### Chaining special behaviors
+### Special behaviors
+
+#### Chaining
 You can chain functions to add special behaviors to the shake
 ``` python
-QuakeCam2D.shake_quake().boost().hold(.1).reverse()
+QuakeCam2D.shake_quake().boost().hold().reverse().boost()
 ```
+#### Special behavior functions
 
 ``` python
 boost(duration:float, multiplier:float = 3)
