@@ -51,8 +51,8 @@ func clean():
 	caller_node = null
 
 ## Update ##
-func process(delta:float, force:bool = false)->Vector2:
-	if (playing and hold_t <= 0) or force:
+func process(delta:float)->Vector2:
+	if (playing and hold_t <= 0):
 		
 		t = t_raw
 		if reversed:
@@ -73,17 +73,6 @@ func process(delta:float, force:bool = false)->Vector2:
 					_delta *= ease(t, frequency_curve)
 			update_offset(_delta)
 		
-		if listen_mode != ListenMode.global:
-			var listen_amplitude:float
-			match listen_mode:
-				ListenMode.position:
-					listen_amplitude = (caller_position - listener.global_position).length()
-				ListenMode.node2D:
-					listen_amplitude = (caller_node.global_position - listener.global_position).length()
-			var listen_multi = clamp(range_lerp(listen_amplitude, listen_amplitude_min, listen_amplitude_max, 1, 0), 0, 1)
-			listen_multi = ease(listen_multi, listen_falloff_curve)
-			offset *= listen_multi
-		
 		t_raw = move_toward(t_raw, 0, delta / duration)
 	elif hold_t > 0:
 		hold_t -= delta
@@ -100,6 +89,18 @@ func update_offset(delta:float):
 	if boost_t > 0:
 		offset *= boost_multi
 		boost_t -= delta
+	
+	
+	if listen_mode != ListenMode.global:
+		var listen_amplitude:float
+		match listen_mode:
+			ListenMode.position:
+				listen_amplitude = (caller_position - listener.global_position).length()
+			ListenMode.node2D:
+				listen_amplitude = (caller_node.global_position - listener.global_position).length()
+		var listen_multi = clamp(range_lerp(listen_amplitude, listen_amplitude_min, listen_amplitude_max, 1, 0), 0, 1)
+		listen_multi = ease(listen_multi, listen_falloff_curve)
+		offset *= listen_multi
 
 # The main function to override and set the shake offsets
 func _update_offset(delta:float):
@@ -122,24 +123,27 @@ func stop():
 ## Special Behaviors ##
 
 # holds the shake for a certain duration, good for building kinetic tension
-func hold(duration:float, calculate_initial:bool = false)->CameraShake:
+func hold(duration:float = .1, calculate_initial:bool = false)->CameraShake:
 	hold_t = duration
 	if calculate_initial:
-		process(.0001, true)
+		update_offset(.0001)
 	return self
 
-func skip(duration:float):
+func skip(duration:float)->CameraShake:
 	t -= duration / self.duration
+	return self
 
 # multiplies the shake for a certain duration, good for adding an extra kick at the start of the shake
-func boost(duration:float, multiplier:float = 3)->CameraShake:
+func boost(duration:float = .1, multiplier:float = 3)->CameraShake:
 	boost_t = duration
 	boost_multi = multiplier
 	return self
 
-func limit_fps(fps:float)->CameraShake:
+# 
+func limit_fps(fps:float = 30)->CameraShake:
 	self.fps = fps
 	return self
+
 
 func reverse()->CameraShake:
 	reversed = !reversed
@@ -148,20 +152,20 @@ func reverse()->CameraShake:
 
 ## Caller/Listener ##
 
-func from_position(position:Vector2, amplitude_max:float = 500, amplitude_min:float = 0, listener:Node2D = null, falloff_curve:float = 1)->CameraShake:
-	self.caller_position = position
-	listen_mode = ListenMode.position
-	listen_amplitude_min = amplitude_min
-	listen_amplitude_max = amplitude_max
-	listen_falloff_curve = falloff_curve
-	if listener: self.listener = listener
-	return self
-
-func from_node(node:Node2D, amplitude_max:float = 500, amplitude_min:float = 0, listener:Node2D = null, falloff_curve:float = 1)->CameraShake:
+func from_node(node:Node2D, amplitude_max:float = 500, amplitude_min:float = 0, falloff_curve:float = 1, listener:Node2D = null)->CameraShake:
 	caller_node = node
 	listen_amplitude_min = amplitude_min
 	listen_amplitude_max = amplitude_max
 	listen_mode = ListenMode.node2D
+	listen_falloff_curve = falloff_curve
+	if listener: self.listener = listener
+	return self
+
+func from_position(position:Vector2, amplitude_max:float = 500, amplitude_min:float = 0, falloff_curve:float = 1, listener:Node2D = null)->CameraShake:
+	self.caller_position = position
+	listen_mode = ListenMode.position
+	listen_amplitude_min = amplitude_min
+	listen_amplitude_max = amplitude_max
 	listen_falloff_curve = falloff_curve
 	if listener: self.listener = listener
 	return self
