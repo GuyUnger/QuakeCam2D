@@ -172,3 +172,8 @@ func _update_offset(delta):
 ```
 Note that in the _update_offset() function you have to set up the behavior for the shake at it's maximum intensity.
 The delta and final offset get automatically multiplied by the time left, so the shake will fade out. If you don't want a shake to fade out you can call amplitude_constant() and frequency_constant() in the _init() function.
+
+Then you can activate the shake by called
+``` python
+QuakeCam2D.add_shake(my_custom_shake)
+```
