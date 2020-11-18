@@ -122,7 +122,7 @@ The most basic of all. Sets a random direction and amplitude each frame
 shake_pull(duration:float = .5, amplitude:float = 10, direction:float = -1.570796)
 ```
 Moves the camera in a direction and smoothly tweens it back
-***tip: the easing can be controlled by setting the amplitude curve ie. amplitude_in(1), amplitude_out(1.5)***
+*tip: the easing can be controlled by setting the amplitude curve ie.* ```amplitude_in(1), amplitude_out(1.5)```
 
 ``` python
 shake_wave(duration:float = .5, amplitude:float = 10, frequency:float = 5, direction:float = -1.570796)
@@ -133,7 +133,7 @@ Waves back and forth in a certain direction
 shake_tremble(duration:float = .5, amplitude:float = 10, direction:float = -1.570796)
 ```
 Moves the camera back and forth the whole amplitude each frame
-***tip: best used with a limited frame rate, to set the framerate use*** ```camera.shake_tramble().limit_fps(12)```
+*tip: best used with a limited frame rate, to set the framerate use* ```camera.shake_tramble().limit_fps(12)```
 
 ### Rotational shakes
 ``` python
@@ -150,7 +150,7 @@ Similar to bobble but more random
 shake_handheld(duration:float = 1, amplitude:float = 10, speed:float = 1)
 ```
 Moves the camera around randomly similar to a camera being held in hand
-***tip: works well if you set it to ongoing (duration to -1) and store the shake as a variables so you can pause() and play() it***
+*tip: works well if you set it to ongoing (duration to -1) and store the shake as a variables so you can pause() and play() it*
 
 ### Zoom shakes
 ``` python
